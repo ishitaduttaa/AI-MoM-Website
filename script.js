@@ -9,9 +9,6 @@ let micStream = null;
 let waveformAnimationId = null;
 let currentUser = null;
 
-// groq
-const GROQ_API_KEY = KEYS.GROQ_API_KEY;
-
 // Initialize on page load
 window.onload = function() {
     initializeSpeechRecognition();
@@ -540,34 +537,21 @@ function getTitleForType(type) {
 }
 
 async function callGroqAI(prompt) {
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const response = await fetch('/.netlify/functions/groq-chat', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${GROQ_API_KEY}`
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             model: 'llama-3.1-8b-instant',
             messages: [
-                {
-                    role: 'system',
-                    content: 'You are a helpful assistant that creates concise and accurate summaries. Always follow the user instructions precisely.'
-                },
-                {
-                    role: 'user',
-                    content: prompt
-                }
-            ],
-            temperature: 0.7,
-            max_tokens: 1024,
-            top_p: 1,
-            stream: false
+                { role: 'system', content: 'You are a helpful assistant that creates concise and accurate summaries. Always follow the user instructions precisely.' },
+                { role: 'user', content: prompt }
+            ]
         })
     });
 
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error?.message || `API request failed with status ${response.status}`);
+        throw new Error(errorData.error || `API request failed with status ${response.status}`);
     }
     const data = await response.json();
     if (!data.choices || !data.choices[0] || !data.choices[0].message) {
