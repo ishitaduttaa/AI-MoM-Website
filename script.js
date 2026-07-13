@@ -452,29 +452,6 @@ async function generateCustomTextSummary() {
 }
 
 async function generateSummary(inputText, sourceType) {
-    if (!GROQ_API_KEY || GROQ_API_KEY === 'gsk_YOUR_FREE_GROQ_API_KEY_HERE') {
-        showAlert('Please add your Groq API key in the script.js file', 'error');
-        const resultsContent = document.getElementById('resultsContent');
-        if (resultsContent) {
-            resultsContent.innerHTML = `
-                <div style="text-align: center; padding: 2rem;">
-                    <h3 style="color: var(--text-primary); margin-bottom: 1rem;">API key setup required</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6;">
-                        To use AI summarization, you need a free Groq API key:
-                    </p>
-                    <ol style="text-align: left; max-width: 500px; margin: 0 auto 1.5rem; color: var(--text-secondary); line-height: 1.8;">
-                        <li>Go to <a href="https://console.groq.com/keys" target="_blank" style="color: var(--text-primary);">console.groq.com/keys</a></li>
-                        <li>Sign up for a free account (no credit card needed!)</li>
-                        <li>Create a new API key</li>
-                        <li>Open your <strong>script.js</strong> file</li>
-                        <li>Replace <code style="background: var(--surface-muted); padding: 2px 6px; border-radius: 3px;">gsk_YOUR_FREE_GROQ_API_KEY_HERE</code> with your actual key</li>
-                    </ol>
-                    <a href="https://console.groq.com/keys" target="_blank" class="btn btn-primary">Get free API key</a>
-                </div>
-            `;
-        }
-        return;
-    }
     showProcessingStatus('AI is analyzing your content...');
 
     try {
