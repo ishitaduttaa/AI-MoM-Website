@@ -64,6 +64,32 @@ function smoothScrollTo(element, duration = 900) {
     loop();
 })();
 
+(function () {
+    const el = document.querySelector('.conversion-options');
+    if (!el) return;
+    let tx = 0, ty = 70, cx = 0, cy = 70;
+
+    document.addEventListener('mousemove', (e) => {
+        tx = (e.clientX / window.innerWidth) * 100;
+        ty = (e.clientY / window.innerHeight) * 100;
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        if (!touch) return;
+        tx = (touch.clientX / window.innerWidth) * 100;
+        ty = (touch.clientY / window.innerHeight) * 100;
+    }, { passive: true });
+
+    function loop() {
+        cx += (tx - cx) * 0.06;
+        cy += (ty - cy) * 0.06;
+        el.style.setProperty('--mx', cx + '%');
+        el.style.setProperty('--my', cy + '%');
+        requestAnimationFrame(loop);
+    }
+    loop();
+})();
 
 //supabase
 const SUPABASE_URL = KEYS.SUPABASE_URL;
