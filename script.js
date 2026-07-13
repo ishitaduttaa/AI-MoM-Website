@@ -789,7 +789,7 @@ function updateAuthUI() {
 }
 
 async function handleSignIn() {
-    if (!supabaseReady) { showAlert('Backend not configured yet — Supabase URL/key are still placeholders.', 'error'); return; }
+    if (!supabaseReady) { showAlert('Backend not configured yet - Supabase URL/key are still placeholders.', 'error'); return; }
     const email = document.getElementById('authEmail').value.trim();
     const password = document.getElementById('authPassword').value;
     if (!email || !password) { showAlert('Please fill in all fields.', 'error'); return; }
@@ -802,7 +802,7 @@ async function handleSignIn() {
 }
 
 async function handleSignUp() {
-    if (!supabaseReady) { showAlert('Backend not configured yet — Supabase URL/key are still placeholders.', 'error'); return; }
+    if (!supabaseReady) { showAlert('Backend not configured yet  - Supabase URL/key are still placeholders.', 'error'); return; }
     const name = document.getElementById('authName').value.trim();
     const email = document.getElementById('authEmailUp').value.trim();
     const password = document.getElementById('authPasswordUp').value;
